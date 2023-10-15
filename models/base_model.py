@@ -1,16 +1,20 @@
 #!/usr/bin/python3
-"""[Base model module for HBnB Holberton's project]"""
+"""
+Module for Base model class
+"""
 import uuid
 from datetime import datetime
 import models
 
 
 class BaseModel:
-    """[BaseModel class for the HBnB Holberton's project]
+    """
+    Declares BaseModel class
     """
 
     def __init__(self, *args, **kwargs) -> None:
-        """[Constructor that initializes a new instance of BaseModel]
+        """
+        Initializes a new instance of BaseModel
         """
         self.id = str(uuid.uuid4())
         self.created_at = datetime.today()
@@ -28,26 +32,21 @@ class BaseModel:
             models.storage.new(self)
 
     def __str__(self) -> str:
-        """[Changing the str method expected output to :
-        [<class name>] (<self.id>) <self.__dict__>]
-
-        Returns:
-            str: [description with the information changed]
+        """
+        Changing the str method expected output to
         """
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def save(self):
-        """[Function that updates the update_date]
+        """
+        Function that updates the update_date
         """
         self.updated_at = datetime.today()
         models.storage.save()
 
     def to_dict(self):
-        """[Function that returns an specific information about the class
-        in a dict]
-
-        Returns:
-            [dict]: [The atttributes with the format required]
+        """
+        Function that returns an specific information about the class
         """
         copy = self.__dict__.copy()
         copy["__class__"] = self.__class__.__name__
