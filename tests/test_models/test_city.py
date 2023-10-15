@@ -101,4 +101,3 @@ class Test_city(TestCase):
         key_id = f"City.{obj.id}"
         with open("file.json", mode="r", encoding="utf-8") as f:
             self.assertIn(key_id, f.read())
-

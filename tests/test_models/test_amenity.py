@@ -99,4 +99,3 @@ class Test_amenity(TestCase):
         key_id = f"Amenity.{obj.id}"
         with open("file.json", mode="r", encoding="utf-8") as f:
             self.assertIn(key_id, f.read())
-
