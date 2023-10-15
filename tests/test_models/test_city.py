@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 
-"""[Unittest for city]
-    """
+"""
+Module for Unittest for city
+"""
 from datetime import date, datetime
 from unittest import TestCase
 from models import city
@@ -11,12 +12,14 @@ City = city.City
 
 
 class Test_style(TestCase):
-    """[Class created to test style and syntax requirements for the
-    city class]
+    """
+    Tests style and syntax requirements
+    for thecity class
     """
 
     def test_pycode(self):
-        """[Function that check Syntax from Peep8 branch called pycodestyle]
+        """
+        Function that check Syntax from Pep8 branch called pycodestyle
         """
         foo = pycodestyle.StyleGuide(quiet=True).check_files([
             'models/city.py'])
@@ -25,21 +28,26 @@ class Test_style(TestCase):
 
 
 class Test_city(TestCase):
-    """[Class for testing all the function of city class]
+    """
+    Tests all the function of city class
     """
     @classmethod
     def setUpClass(cls):
-        """Setting up a test object"""
+        """
+        Sets up a test object
+        """
         cls.city1 = City()
 
     def test_empty_city(self):
-        """[Testing if instance is correcty related]
+        """
+        Checks if instance is correcty related
         """
         self.assertIsNotNone(self.city1)
         self.assertIsInstance(self.city1, City)
 
     def test_id_value(self):
-        """[Cheking if id is an uuid version 4]
+        """
+        Checks if id is an uuid version 4
         """
         city_test2 = City(id='1')
         with self.assertRaises(ValueError) as _:
@@ -49,24 +57,31 @@ class Test_city(TestCase):
             uuid.UUID(city_test3.id, version=4)
 
     def test_dates(self):
-        """[Cheking dates are correctly created]
+        """
+        Checks dates are correctly created
         """
         self.assertIsInstance(self.city1.created_at, datetime)
         self.assertIsInstance(self.city1.updated_at, datetime)
 
     def test__str__(self):
-        """[Cheking correct output when printing]"""
+        """
+        Checks correct output when printing
+        """
         id1 = self.city1.id
         self.assertTrue(f'[City] ({id1})' in str(self.city1))
 
     def test_save(self):
-        """Checks if updated_at is changed with save method"""
+        """
+        Checks if updated_at is changed with save method
+        """
         self.city1.save()
         self.assertNotEqual(self.city1.updated_at,
                             self.city1.created_at)
 
     def test_to_dict(self):
-        """Checks to_dict method"""
+        """
+        Checks to_dict method
+        """
         city_test4 = City()
         dict_city4 = city_test4.to_dict()
         self.assertIsInstance(dict_city4, dict)
@@ -74,14 +89,18 @@ class Test_city(TestCase):
         self.assertIsInstance(dict_city4['updated_at'], str)
 
     def test_attributes(self):
-        """Checks correct attributes assignment"""
+        """
+        Checks correct attributes assignment
+        """
         city5 = City(state_id=123)
         city5.name = "Cali"
         self.assertEqual(city5.state_id, 123)
         self.assertEqual(city5.name, 'Cali')
 
     def test_creating_with_kwargs(self):
-        """[Checking creation with kwargs]"""
+        """
+        Checks creation with kwargs
+        """
         obj = City()
         dictionary = obj.to_dict()
         new_date = datetime.today()
@@ -95,7 +114,9 @@ class Test_city(TestCase):
         self.assertEqual(obj.updated_at, new_date)
 
     def test_save_with_file(self):
-        """ Checks if the generated key is saved in the json file"""
+        """
+        Checks if the generated key is saved in the json file
+        """
         obj = City()
         obj.save()
         key_id = f"City.{obj.id}"

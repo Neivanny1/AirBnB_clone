@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 
-"""[Unittest for state]
-    """
+"""
+Module for Unittest for state
+"""
 from datetime import date, datetime
 from unittest import TestCase
 from models import state
@@ -11,12 +12,14 @@ State = state.State
 
 
 class Test_style(TestCase):
-    """[Class created to test style and syntax requirements for the
-    state class]
+    """
+    Tests style and syntax requirements
+    for the state class
     """
 
     def test_pycode(self):
-        """[Function that check Syntax from Peep8 branch called pycodestyle]
+        """
+        Checks Syntax from Pep8 branch called pycodestyle
         """
         foo = pycodestyle.StyleGuide(quiet=True).check_files([
             'models/state.py'])
@@ -25,21 +28,26 @@ class Test_style(TestCase):
 
 
 class Test_state(TestCase):
-    """[Class for testing all the function of state class]
+    """
+    Tests all the function of state class
     """
     @classmethod
     def setUpClass(cls):
-        """Setting up a test object"""
+        """
+        Sets up a test object
+        """
         cls.state1 = State()
 
     def test_empty_state(self):
-        """[Testing if instance is correcty related]
+        """
+        Testing if instance is correcty related
         """
         self.assertIsNotNone(self.state1)
         self.assertIsInstance(self.state1, State)
 
     def test_id_value(self):
-        """[Cheking if id is an uuid version 4]
+        """
+        Checks if id is an uuid version 4
         """
         state_test2 = State(id='1')
         with self.assertRaises(ValueError) as _:
@@ -49,24 +57,31 @@ class Test_state(TestCase):
             uuid.UUID(state_test3.id, version=4)
 
     def test_dates(self):
-        """[Cheking dates are correctly created]
+        """
+        Checks dates are correctly created
         """
         self.assertIsInstance(self.state1.created_at, datetime)
         self.assertIsInstance(self.state1.updated_at, datetime)
 
     def test__str__(self):
-        """[Cheking correct output when printing]"""
+        """
+        Checks correct output when printing
+        """
         id1 = self.state1.id
         self.assertTrue(f'[State] ({id1})' in str(self.state1))
 
     def test_save(self):
-        """Checks if updated_at is changed with save method"""
+        """
+        Checks if updated_at is changed with save method
+        """
         self.state1.save()
         self.assertNotEqual(self.state1.updated_at,
                             self.state1.created_at)
 
     def test_to_dict(self):
-        """Checks to_dict method"""
+        """
+        Checks to_dict method
+        """
         state_test4 = State()
         dict_state4 = state_test4.to_dict()
         self.assertIsInstance(dict_state4, dict)
@@ -74,12 +89,16 @@ class Test_state(TestCase):
         self.assertIsInstance(dict_state4['updated_at'], str)
 
     def test_attributes(self):
-        """Checks correct attributes assignment"""
+        """
+        Checks correct attributes assignment
+        """
         state5 = State(name='California')
         self.assertEqual(state5.name, 'California')
 
     def test_creating_with_kwargs(self):
-        """[Checking creation with kwargs]"""
+        """
+        Checks creation with kwargs
+        """
         obj = State()
         dictionary = obj.to_dict()
         new_date = datetime.today()
@@ -93,7 +112,9 @@ class Test_state(TestCase):
         self.assertEqual(obj.updated_at, new_date)
 
     def test_save_with_file(self):
-        """ Checks if the generated key is saved in the json file"""
+        """
+        Checks if the generated key is saved in the json file
+        """
         obj = State()
         obj.save()
         key_id = f"State.{obj.id}"

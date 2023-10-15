@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 
-"""[Unittest for amenity]
-    """
+"""
+Module Unittest for amenity
+"""
 from datetime import date, datetime
 from unittest import TestCase
 from models import amenity
@@ -11,12 +12,14 @@ Amenity = amenity.Amenity
 
 
 class Test_style(TestCase):
-    """[Class created to test style and syntax requirements for the
-    amenity class]
+    """
+    Tests style and syntax requirements
+    for theamenity class
     """
 
     def test_pycode(self):
-        """[Function that check Syntax from Peep8 branch called pycodestyle]
+        """
+        Checks Syntax from Pep8 branch called pycodestyle
         """
         foo = pycodestyle.StyleGuide(quiet=True).check_files([
             'models/amenity.py'])
@@ -25,21 +28,26 @@ class Test_style(TestCase):
 
 
 class Test_amenity(TestCase):
-    """[Class for testing all the function of amenity class]
+    """
+    Tests all the function of amenity class
     """
     @classmethod
     def setUpClass(cls):
-        """Setting up a test object"""
+        """
+        Sets up a test object
+        """
         cls.amenity1 = Amenity()
 
     def test_empty_amenity(self):
-        """[Testing if instance is correcty related]
+        """
+        Checks if instance is correcty related
         """
         self.assertIsNotNone(self.amenity1)
         self.assertIsInstance(self.amenity1, Amenity)
 
     def test_id_value(self):
-        """[Cheking if id is an uuid version 4]
+        """
+        Checks if id is an uuid version 4
         """
         amenity_test2 = Amenity(id='1')
         with self.assertRaises(ValueError) as _:
@@ -49,24 +57,31 @@ class Test_amenity(TestCase):
             uuid.UUID(amenity_test3.id, version=4)
 
     def test_dates(self):
-        """[Cheking dates are correctly created]
+        """
+        Checks dates are correctly created
         """
         self.assertIsInstance(self.amenity1.created_at, datetime)
         self.assertIsInstance(self.amenity1.updated_at, datetime)
 
     def test__str__(self):
-        """[Cheking correct output when printing]"""
+        """
+        Checks the  correct output when printing
+        """
         id1 = self.amenity1.id
         self.assertTrue(f'[Amenity] ({id1})' in str(self.amenity1))
 
     def test_save(self):
-        """Checks if updated_at is changed with save method"""
+        """
+        Checks if updated_at is changed with save method
+        """
         self.amenity1.save()
         self.assertNotEqual(self.amenity1.updated_at,
                             self.amenity1.created_at)
 
     def test_to_dict(self):
-        """Checks to_dict method"""
+        """
+        Checks to_dict method
+        """
         amenity_test4 = Amenity()
         dict_amenity4 = amenity_test4.to_dict()
         self.assertIsInstance(dict_amenity4, dict)
@@ -74,12 +89,16 @@ class Test_amenity(TestCase):
         self.assertIsInstance(dict_amenity4['updated_at'], str)
 
     def test_attributes(self):
-        """Checks correct attributes assignment"""
+        """
+        Checks correct attributes assignment
+        """
         amenity5 = Amenity(name='Towels')
         self.assertEqual(amenity5.name, 'Towels')
 
     def test_creating_with_kwargs(self):
-        """[Checking creation with kwargs]"""
+        """
+        Checks the creation with kwargs
+        """
         obj = Amenity()
         dictionary = obj.to_dict()
         new_date = datetime.today()
@@ -93,7 +112,9 @@ class Test_amenity(TestCase):
         self.assertEqual(obj.updated_at, new_date)
 
     def test_save_with_file(self):
-        """ Checks if the generated key is saved in the json file"""
+        """
+        Checks if the generated key is saved in the json file
+        """
         obj = Amenity()
         obj.save()
         key_id = f"Amenity.{obj.id}"

@@ -1,6 +1,7 @@
 #!/usr/bin/python3
-"""[Module hat containts the TestFileStorage Class]
-    """
+"""
+Module for testing  TestFileStorage Class
+"""
 import json
 from typing import Type
 from models.engine import file_storage
@@ -22,17 +23,20 @@ classes = {BaseModel, User, Place, State, City, Amenity, Review}
 
 
 class Test_style(unittest.TestCase):
-    """[Class created to test style and syntax requirements for the
-    base_model class]
+    """
+    Tests style and syntax requirements for the
+    base_model class
     """
     @classmethod
     def setUpClass(cls) -> None:
-        """[list the functions to docstring test]
+        """
+        List the functions to docstring test
         """
         cls.methods_ds = inspect.getmembers(FileStorage, inspect.isfunction)
 
     def test_pycode(self):
-        """[Function that check Syntax from Peep8 branch called pycodestyle]
+        """
+        Checks Syntax from Peep8 branch called pycodestyle
         """
         foo = pycodestyle.StyleGuide(quiet=True).check_files([
             'models/engine/file_storage.py'])
@@ -40,7 +44,8 @@ class Test_style(unittest.TestCase):
                          "Found code style error (and warnings).")
 
     def test_docstring(self):
-        """[Function to test docstring of the class and the module]
+        """
+        Tests docstring of the class and the module
         """
         self.assertIsNot(file_storage.__doc__, None,
                          "file_storage.py needs a docstring")
@@ -58,17 +63,22 @@ class Test_style(unittest.TestCase):
 
 
 class TestFileStorage(unittest.TestCase):
-    """Testing for FileStorage"""
+    """
+    Testing for FileStorage
+    """
 
     def test_all(self):
-        """Test all method"""
+        """
+        Test all method
+        """
         storage = FileStorage()
         dictionary = storage.all()
         self.assertIs(dictionary, storage._FileStorage__objects)
         self.assertEqual(dict, type(dictionary))
 
     def test_new(self):
-        """ Testing new method
+        """
+        Testing new method
         """
         for value in classes:
             with self.subTest(value=value):
@@ -90,20 +100,24 @@ class TestFileStorage(unittest.TestCase):
         FileStorage._FileStorage__objects = back_up
 
     def test_new_without_args(self):
-        """[Testing when not arguments provided]"""
+        """
+        Testing when not arguments provided
+        """
         for value in classes:
             with self.subTest(value):
                 with self.assertRaises(TypeError):
                     models.storage.new(value(), '10')
 
     def test_new_With_None(self):
-        """[Testing when is provided a None to .all method]
+        """
+        Testing when is provided a None to .all method
         """
         with self.assertRaises(TypeError):
             models.storage.all(None)
 
     def test_save(self):
-        """[Test implementation of save after new]
+        """
+        Test implementation of save after new
         """
         for value in classes:
             with self.subTest(value=value):
@@ -133,13 +147,15 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(json.loads(content), json.loads(json_string))
 
     def test_save_With_None(self):
-        """[Test when is provided a None to .save method]
+        """
+        Test when is provided a None to .save method
         """
         with self.assertRaises(TypeError):
             models.storage.save(None)
 
     def test_reload(self):
-        """[Test implementation of reload after new + save]
+        """
+        Test implementation of reload after new + save
         """
         for value in classes:
             with self.subTest(value=value):
@@ -152,7 +168,8 @@ class TestFileStorage(unittest.TestCase):
                     obj.__class__.__name__, obj.id), objects)
 
     def test_reload_With_None(self):
-        """[Test when is provided a None to .save method]
+        """
+        Test when is provided a None to .save method
         """
         with self.assertRaises(TypeError):
             models.storage.reload(None)
